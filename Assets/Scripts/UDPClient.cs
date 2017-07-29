@@ -8,10 +8,7 @@ using System.Net.NetworkInformation;
 
 public class UDPClient : MonoBehaviour
 {
-    // broadcast address
-    // public string host = "192.168.151.255";
-    private string host = "192.168.144.79";
-    // private string host = "127.0.0.1";
+    public string host = "172.20.1.93";
     public int port = 3333;
     private UdpClient client;
 
@@ -19,7 +16,7 @@ public class UDPClient : MonoBehaviour
     {
         client = new UdpClient();
         client.Connect(host, port);
-        // StartCoroutine(Send());
+        StartCoroutine(Send());
     }
 
     void Update ()

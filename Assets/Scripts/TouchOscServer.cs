@@ -15,6 +15,8 @@ public class TouchOscServer : MonoBehaviour
     [SerializeField]
     int listenPort = 3333;
 
+    public string host = "172.20.1.93";
+
     Osc.Parser osc_ = new Osc.Parser();
 
     void OnMessage(Osc.Message msg)

@@ -17,21 +17,7 @@ public class UDPServer : MonoBehaviour
 
     void Start ()
     {
-        // var hostName = Dns.GetHostName();
-        // print(hostName);
-        // var addresses = Dns.GetHostAddresses("192.168.144.79");
-        // print(addresses);
-        // foreach (var a in addresses) {
-        //     print(a);
-        // }
-
-        // var local = new IPEndPoint(IPAddress.Any, port);
-        // udp = new UdpClient(local);
-        // udp.Client.ReceiveTimeout = 1000;
-        // thread = new Thread(new ThreadStart(ThreadMethod));
-        // thread.Start(); 
-
-        remoteIP = new IPEndPoint(IPAddress.Parse("192.168.144.79"), port);
+        remoteIP = new IPEndPoint(IPAddress.Parse("172.20.1.93"), port);
         data = Encoding.UTF8.GetBytes("hey!");
         s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         s.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.IpTimeToLive, 255);
