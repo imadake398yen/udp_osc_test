@@ -11,6 +11,7 @@ public class UDPClient : SingletonMonoBehaviour<UDPClient>
     public string host = "172.20.1.93";
     public int port = 3333;
     private UdpClient client;
+    public string msg;
 
     private Osc.Parser osc = new Osc.Parser();
     void OnMessage(Osc.Message msg)
@@ -29,8 +30,8 @@ public class UDPClient : SingletonMonoBehaviour<UDPClient>
     IEnumerator Send () {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
-            byte[] dgram = Encoding.UTF8.GetBytes("hello!");
+            yield return new WaitForSeconds(0.1f);
+            byte[] dgram = Encoding.UTF8.GetBytes(msg);
             client.Send(dgram, dgram.Length);
         }
     }
