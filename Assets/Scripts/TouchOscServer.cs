@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using System.Text;
 
 #if UNITY_EDITOR
 using System.Net;
@@ -15,7 +16,7 @@ public class TouchOscServer : MonoBehaviour
     [SerializeField]
     int listenPort = 3333;
 
-    public string host = "172.20.1.93";
+    public string host = "172.20.1.29";
 
     Osc.Parser osc_ = new Osc.Parser();
 
@@ -31,8 +32,9 @@ public class TouchOscServer : MonoBehaviour
 
     void Start()
     {
-        endPoint_ = new IPEndPoint(IPAddress.Any, listenPort);
-        udpClient_ = new UdpClient(endPoint_);
+        endPoint_ = new IPEndPoint(IPAddress.Parse(host), listenPort);
+        udpClient_ = new UdpClient();
+        udpClient_.Connect(host, listenPort);
     }
 
     void Update()
@@ -48,6 +50,16 @@ public class TouchOscServer : MonoBehaviour
         }
 
     }
+
+    void OnGUI()
+    {
+        if(GUI.Button (new Rect (10,10,100,40), "Send"))
+        {
+            byte[] dgram = Encoding.UTF8.GetBytes("hello!");
+            udpClient_.Send(dgram, dgram.Length);
+        }
+    }
+
 #else
     DatagramSocket socket_;
     object lockObject_ = new object();

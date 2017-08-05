@@ -6,11 +6,18 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 
-public class UDPClient : MonoBehaviour
+public class UDPClient : SingletonMonoBehaviour<UDPClient>
 {
     public string host = "172.20.1.93";
     public int port = 3333;
     private UdpClient client;
+
+    private Osc.Parser osc = new Osc.Parser();
+    void OnMessage(Osc.Message msg)
+    {
+        // ここで適当に処理する
+        Debug.LogFormat("{0} => {1}", msg.path, msg.data[0]);
+    }
 
     void Start ()
     {
@@ -19,17 +26,18 @@ public class UDPClient : MonoBehaviour
         StartCoroutine(Send());
     }
 
-    void Update ()
-    {
-    }
-
     IEnumerator Send () {
         while (true)
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1f);
             byte[] dgram = Encoding.UTF8.GetBytes("hello!");
             client.Send(dgram, dgram.Length);
         }
+    }
+
+    public void SendData (string message) {
+        byte[] dgram = Encoding.UTF8.GetBytes(message);
+        client.Send(dgram, dgram.Length);
     }
 
     void OnGUI()

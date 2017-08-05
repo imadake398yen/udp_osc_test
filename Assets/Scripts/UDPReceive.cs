@@ -17,6 +17,7 @@ public class UDPReceive : MonoBehaviour
         // udp.Client.ReceiveTimeout = 1000;
         thread = new Thread(new ThreadStart(ThreadMethod));
         thread.Start(); 
+
     }
 
     void Update ()
